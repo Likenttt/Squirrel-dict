@@ -1,91 +1,13 @@
-# Rime schema settings
-# encoding: utf-8
-
-schema:
-  schema_id: hepy
-  name: 小鶴音形
-  version: "1"
-
-
-punctuator:
-  full_shape:
-    ' ' : { commit: '　' }
-    ',' : { commit: ， }
-    '.' : { commit: 。 }
-    '<' : [ 《, 〈, «, ‹ ]
-    '>' : [ 》, 〉, », › ]
-    '/' : [ ／, ÷ ]
-    '?' : { commit: ？ }
-    ';' : { commit: ； }
-    ':' : { commit: ： }
-    '''' : { pair: [ '‘', '’' ] }
-    '"' : { pair: [ '“', '”' ] }
-    '\' : [ 、, ＼ ]
-    '|' : [ ·, ｜, '§', '¦' ]
-    '`' : ｀
-    '~' : ～
-    '!' : { commit: ！ }
-    '@' : [ ＠, ☯ ]
-    '#' : [ ＃, ⌘ ]
-    '%' : [ ％, '°', '℃' ]
-    '$' : [ ￥, '$', '€', '£', '¥', '¢', '¤' ]
-    '^' : { commit: …… }
-    '&' : ＆
-    '*' : [ ＊, ·, ・, ×, ※, ❂ ]
-    '(' : （
-    ')' : ）
-    '-' : －
-    '_' : ——
-    '+' : ＋
-    '=' : ＝
-    '[' : [ 「, 【, 〔, ［ ]
-    ']' : [ 」, 】, 〕, ］ ]
-    '{' : [ 『, 〖, ｛ ]
-    '}' : [ 』, 〗, ｝ ]
-  half_shape:
-    ',' : { commit: ， }
-    '.' : { commit: 。 }
-    '<' : [ 《, 〈, «, ‹ ]
-    '>' : [ 》, 〉, », › ]
-    '/' : { commit: 、 }
-    '?' : { commit: ？ }
-    ';' : { commit: ； }
-    ':' : { commit: ： }
-    '''' : { pair: [ '‘', '’' ] }
-    '"' : { pair: [ '“', '”' ] }
-    '\' : [ 、, '\', ＼ ]
-    '|' : [ ·, '|', ｜, '§', '¦' ]
-    '`' : '`'
-    '~' : [ '~', ～ ]
-    '!' : { commit: ！ }
-    '@' : '@'
-    '#' : '#'
-    '%' : [ '%', ％, '°', '℃' ]
-    '$' : [ ￥, '$', '€', '£', '¥', '¢', '¤' ]
-    '^' : { commit: …… }
-    '&' : '&'
-    '*' : [ '*', ＊, ·, ・, ×, ※, ❂ ]
-    '(' : （
-    ')' : ）
-    '-' : '-'
-    '_' : ——
-    '+' : '+'
-    '=' : '='
-    '[' : [ 「, 【, 〔, ［ ]
-    ']' : [ 」, 】, 〕,  ］ ]
-    '{' : [ 『, 〖, ｛ ]
-    '}' : [ 』, 〗, ｝ ]
-
-switches:
-  - name: ascii_mode
-    reset: 0
-    states: [ 中文, 西文 ]
-  - name: full_shape
-    states: [ 半角, 全角 ]
-  - name: simplification
-    states: [ 漢字, 汉字 ]
-
+custom_phrase:
+  db_class: stabledb
+  dictionary: ""
+  enable_sentence: false
+  user_dict: custom_phrase
+customization: 944064991
 engine:
+  filters:
+    - simplifier
+    - uniquifier
   processors:
     - ascii_composer
     - recognizer
@@ -103,57 +25,52 @@ engine:
     - fallback_segmentor
   translators:
     - punct_translator
-    - table_translator@custom_phrase
+    - "table_translator@custom_phrase"
     - table_translator
     - reverse_lookup_translator
-  filters:
-    - simplifier
-    - uniquifier
-
-speller:
-  alphabet: 'abcdefghjiklmnopqrstuvwxyz'
-  delimiter: " '"
-  max_code_length: 4
-  auto_select: true
-
-translator:
-  dictionary: hepy
-  enable_charset_filter: false
-  disable_user_dict_for_patterns:
-    - "^z.*$"
-  enable_completion: true
-  enable_sentence: false
-  enable_user_dict: true
-  dictionary: hepy
-
-custom_phrase:
-  dictionary: ""
-  user_dict: custom_phrase
-  db_class: stabledb
-  enable_sentence: false
-
-reverse_lookup:
-  dictionary: stroke_simp
-  enable_completion: true
-  prefix: "`"
-  suffix: "'"
-  tips: 〔笔画〕
-  preedit_format:
-    - xlit/hspnz/一丨丿丶乙/
-
+key_binder:
+  bindings:
+    - {accept: comma, send: Page_Up, when: has_menu}
+    - {accept: period, send: Page_Down, when: has_menu}
+    - {accept: ";", send: 2, when: has_menu}
+    - {accept: "'", send: 3, when: has_menu}
+    - {accept: Tab, send: ";", when: composing}
 punctuator:
   import_preset: default
-
-key_binder:
-    bindings:
-    - { when: has_menu, accept: comma, send:   Page_Up }
-    - { when: has_menu, accept: period, send:   Page_Down }
-    - { when: has_menu, accept: ";", send: 2 }
-    - { when: has_menu, accept: "'", send: 3 }
-    - { when: composing, accept: "Tab", send: ; }
-
 recognizer:
   import_preset: default
   patterns:
     reverse_lookup: "`[a-z]*'?$"
-	
+reverse_lookup:
+  dictionary: stroke_simp
+  enable_completion: true
+  preedit_format:
+    - "xlit/hspnz/一丨丿丶乙/"
+  prefix: "`"
+  suffix: "'"
+  tips: "〔笔画〕"
+schema:
+  name: "小鶴音形"
+  schema_id: hepy
+  version: 1.custom.944064991
+speller:
+  alphabet: abcdefghjiklmnopqrstuvwxyz
+  auto_select: true
+  delimiter: " '"
+  max_code_length: 4
+switches:
+  - name: ascii_mode
+    reset: 0
+    states: ["中文", "西文"]
+  - name: full_shape
+    states: ["半角", "全角"]
+  - name: simplification
+    states: ["漢字", "汉字"]
+translator:
+  dictionary: hepy
+  disable_user_dict_for_patterns:
+    - "^z.*$"
+  enable_charset_filter: false
+  enable_completion: true
+  enable_sentence: false
+  enable_user_dict: false

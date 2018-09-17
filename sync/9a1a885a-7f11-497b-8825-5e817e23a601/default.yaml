@@ -4,12 +4,13 @@
 config_version: "0.36"
 
 schema_list:
-  - schema: luna_pinyin
-  - schema: cangjie5
-  - schema: luna_pinyin_fluency
-  - schema: luna_pinyin_simp
-  - schema: luna_pinyin_tw
+#  - schema: luna_pinyin
+# - schema: cangjie5
+# - schema: luna_pinyin_fluency
+#  - schema: luna_pinyin_simp
+# - schema: luna_pinyin_tw
   - schema: hepy
+#  - schema: wubi_pinyin
 
 
 switcher:
@@ -28,7 +29,7 @@ switcher:
   option_list_separator: '／'
 
 menu:
-  page_size: 5
+  page_size: 6
 
 punctuator:
   full_shape:

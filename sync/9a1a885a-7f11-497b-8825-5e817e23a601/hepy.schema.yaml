@@ -123,7 +123,7 @@ translator:
     - "^z.*$"
   enable_completion: true
   enable_sentence: false
-  enable_user_dict: false
+  enable_user_dict: true
   dictionary: hepy
 
 custom_phrase:
